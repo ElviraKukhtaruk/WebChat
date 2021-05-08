@@ -1,0 +1,6 @@
+@media only screen and (max-width: 500px) {
+    .image_wrp{
+        max-width: 100%;
+        min-width: 1px;
+    }
+  }

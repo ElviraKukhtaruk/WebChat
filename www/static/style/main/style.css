@@ -1,0 +1,64 @@
+body{
+    font-family: ShipporiMinchoB1;
+    background-color: #000;
+    color: #dcdee0;
+}
+
+input, button{
+    outline: none;
+}
+@font-face {
+    font-family: ShipporiMinchoB1;
+    src: url('/static/style/fonts/PlayfairDisplay-Regular.ttf');
+}
+
+.header_text{
+    margin-top: 40px;
+    font-size: 50px;
+    text-align: center;
+}
+
+.form{
+    margin: 70px auto 20px auto;
+    padding: 20px;
+    text-align: center;
+    border: 5px solid #dcdee0;
+    max-width: 700px;
+    min-width: 1px;
+}
+
+.form_input{
+    padding-bottom: 5px;
+    font-size: 19px;
+    color: #dcdee0;
+    margin-top: 50px;
+    background-color: #000;
+    box-sizing: border-box;
+    border: none;
+    border-bottom: 1px solid #fff;
+    width: 100%;
+    max-width: 500px;
+    display: inline-block;
+}.form_input::placeholder{
+    color: #dcdee0;
+    font-size: 17px;
+}
+
+.submit_button{
+    border: 1px solid #dcdee0;
+    cursor: pointer;
+    font-family: ShipporiMinchoB1;
+    font-size: 22px;
+    border-radius: 5px;
+    max-width: 500px;
+    width: 100%;
+    background-color: #dcdee0;
+    color: #000;
+    padding: 15px;
+    display: block;
+    margin: 50px auto 50px auto;
+}.submit_button:active{
+   background-color: #000;
+   color: #dcdee0;
+}
+

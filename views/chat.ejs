@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Ghost Party</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link rel="icon" href="/static/img/half-moon.svg">
+    <link rel="stylesheet" href="/static/style/chat/style.css">
+    <link rel="stylesheet" href="/static/style/chat/media.css">
+  </head>
+<body>
+  <div class="connect">
+    <div class="connect_container">
+      <input class="input_connect id" name="id" placeholder="id"/>
+      <input class="input_connect sec_name" name="secret_name" placeholder="sekretní slovo"/>
+      <button class="submit_connect_btn">Odeslat</button>
+    </div>
+  </div>
+  
+   <div class="menu">
+    <div class="lds-facebook">Uživatel píše...<div></div><div></div><div></div></div>
+     <img src="/static/img/grid.svg" class="menu_icon"/>
+   </div>
+   <div class="message"></div>
+    <div class="messages_container"></div>
+
+    <div class="send_container">
+       <div class="inner_send_container">
+          <textarea class="input_message"></textarea>
+          <button type="button" class="submit_button">Odeslat</button>
+       </div>
+    </div>
+</body>
+</html>
+<script src="/static/js/library/jquery.js"></script>
+<script src="/static/js/library/socket.io.min.js"></script>
+<script src="/static/js/auth/auth.js"></script>
+<script src="/static/js/chat/chat.js"></script>
+<script>
+   function scrollDown(){
+     setTimeout(()=>{
+         window.scrollTo(0,document.querySelector("body").scrollHeight);
+     }, 0);
+    }scrollDown();
+</script>
