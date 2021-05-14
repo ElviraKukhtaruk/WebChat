@@ -11,10 +11,10 @@ let sendMessage  = require('./modules/socket/sendMessage');
 let writing      = require('./modules/socket/writing');
                    require('dotenv').config();
 
-                   
+
 app.use(express.static('www'));
 app.set('view engine', 'ejs');
-app.use(express.urlencoded({ extended:true }));
+app.use(express.urlencoded({ extended: true }));
 app.use(sessionConf());
 app.use('/', main_route);
 app.use('/auth', auth_route);
