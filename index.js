@@ -25,7 +25,8 @@ io.use(accessSocket.middleware);
 
 
 io.on('connection', (socket) => {
-  
+ console.log('connected');
+ if(socket.request.session.auth){
   socket.on('disconnect', () => {
     access.delete(socket.id);
     console.log('user disconnected');
@@ -36,7 +37,7 @@ io.on('connection', (socket) => {
   socket.on("writing", ()=>{
     writing(socket, io);
   });
-
+ }
 });
 
 

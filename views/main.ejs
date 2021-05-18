@@ -7,13 +7,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
 <body>
-
+    <div class="message"></div>
     <div class="header_text">Kdo Jsi !?</div>
-    <form class="form" action="/auth" method="POST">
-        <input type="text" name="username" class="form_input" placeholder="jméno"/>
-        <input type="password" name="password" class="form_input" placeholder="heslo"/>
-        <button class="submit_button" type="submit">Přihlasit se</button>
-    </form>
+    <div class="form">
+        <input type="text" name="username" class="form_input name" placeholder="jméno"/>
+        <input type="password" name="password" class="form_input password" placeholder="heslo"/>
+        <button class="submit_button">Přihlasit se</button>
+    </div>
+
+<script src="/static/js/library/jquery.js"></script>
+<script src="/static/js/messages/message.js"></script>
+<script src="/static/js/auth/auth.js"></script>
 
 </body>
 </html>

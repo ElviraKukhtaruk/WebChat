@@ -6,16 +6,14 @@ module.exports.add = (id, secret_word)=>{
   console.log(access);
 }
 
-module.exports.get = (id, secret_word)=>{
-   if(id) return access.filter(obj => { return obj.id == id }); 
-   else return access.filter(obj => { return obj.secret_word === secret_word });
+module.exports.get = (id)=>{
+   return access.filter(obj => { return obj.id == id }); 
 }
 
-module.exports.delete = (id, secret_word)=>{
-   if(id) access = access.filter(obj =>{ return obj.id !== id }); 
-   else access = access.filter(obj =>{ return obj.secret_word !== secret_word });  
+module.exports.delete = (id)=>{
+   access = access.filter(obj =>{ return obj.id !== id });  
 }
 
-module.exports.getSecondPerson = (id)=>{
-    return access.filter(obj => { return obj.id !== id }); 
+module.exports.getSecondPerson = (id, secret_word)=>{
+   return access.filter(obj => { return obj.id !== id });   
 }

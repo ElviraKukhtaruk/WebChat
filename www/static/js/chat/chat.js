@@ -1,27 +1,12 @@
 let setTimeoutId;
-let dataURL;
 
 function scrollDown(){
-    setTimeout(()=>{
-        window.scrollTo(0,document.querySelector("body").scrollHeight);
-}, 0);
+  setTimeout(()=> window.scrollTo(0, document.querySelector("body").scrollHeight), 0);
 }
 
 $(".input_message").on("keydown", function(){
   socket.emit('writing');
 });
-
-
-function showMessage(text, type){
-  let messageColor = '';
-  type === 'error' ?  messageColor='ff4d4d' : messageColor="#4dff52";
-  $(".message").css("display", "block");
-  $(".message").css("background-color", messageColor);
-  $(".message").text(text);
-  setTimeout(function(){
-    $(".message").css("display", "none");
-  }, 4000);
-}
 
 
 $(".submit_button").click(function(){
@@ -32,6 +17,21 @@ $(".submit_button").click(function(){
     }
     $(".input_message").val("");
     scrollDown();
+});
+
+$(".log_out").click(function(){
+  $.ajax({
+    type: 'GET',
+    url: '/auth/log_out',
+    dataType: 'text',
+    success: function(mess){
+      window.location.href = "/";
+    },
+    error: function(err){
+       console.log(err);
+       showMessage(err.responseText, 'error');
+    }
+ });
 });
 
 socket.on('answer', function(answer){

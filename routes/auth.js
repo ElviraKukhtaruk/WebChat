@@ -6,25 +6,37 @@ let checkPasswd        = require('../modules/auth/timingSafeEqual');
 
 router.post('/', async(req, res)=>{
  try{
-    console.log(checkPasswd(req.body.password));
+   if(checkPasswd(req.body.password)){
     await session_regenerate(req);
+    req.session.auth = true;
     res.render('chat');
+   }else res.status(403).send('Špatné heslo nebo jméno');
  }catch(err){
     console.error(err);
     res.status(500).send('Something went wrong');
  }
 });
+
+router.get('/', (req, res)=>{
+  res.render('chat');
+});
     
 router.post('/connect', (req, res)=>{
  try{
+   if(req.session.auth){
     access.add(req.body.id, req.body.secret_name);
     req.session.socketId = req.body.id;
     req.session.secret_word = req.body.secret_name;
     res.send('success');
+   }else res.send('success');//res.status(403).send('Nejste přihlášeni');
  }catch(err){
-    if(err.message === "too many people") res.status(403).send("Too many people");
-    else res.status(500).send("Something went wrong");
+    if(err.message === "too many people") res.status(403).send("V chatu už jsou 2 osoby");
+    else res.status(500).send("Něco špatně, zkuste se přihlásit znova");
  }
+});
+
+router.get('/log_out', (req, res)=>{
+  req.session.destroy((err)=> err ? res.status(500).send("Something went wrong") : res.send("success"));
 });
 
 module.exports = router;

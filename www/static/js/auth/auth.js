@@ -1,27 +1,17 @@
-let socket = io.connect('http://192.168.0.32:3000');
+$(".submit_button").click(function(){
+ let name = $(".form_input.name").val();
+ let password = $(".form_input.password").val();
 
-socket.on('connect', function() {
-    $(".input_connect.id").val(socket.id);
-});
-
-$(".submit_connect_btn").click(()=>{
-    let id = $(".input_connect.id").val();
-    let secret_name = $(".input_connect.sec_name").val();
-    sentRequest(id, secret_name);
-});
-
-function sentRequest(id, secret_name){
-$.ajax({
+  $.ajax({
     type: 'POST',
-    url: '/auth/connect',
+    url: '/auth',
     dataType: 'text',
-    data: {id: id, secret_name: secret_name},
-    success: function(mess){
-      console.log(mess);
-      $(".connect").css("display", "none");
+    data: {name: name, password: password},
+    success: function(){
+        window.location.href = "/auth";
     },
     error: function(err){
-       console.log(err);
+        showMessage(err.responseText, 'error');
     }
- });
-}
+  });
+});

@@ -30,7 +30,7 @@ textarea, button, input{
 }
 
 .message{
-    z-index: 1;
+    z-index: 3;
     display: none;
     position: fixed;
     background-color: #ff4d4d;
@@ -70,6 +70,32 @@ textarea, button, input{
     margin: 10px;
 }
 
+
+.log_out{
+  background-color: #33FF82;
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: 10px;
+  font-size: 15px;
+  display: inline-flex;
+  position: relative;
+  top: 54px;
+  color: #000;
+  border-top: 2px dotted #fff;
+}
+
+.log_out_img{
+  width: 30px;
+}
+
+.log_out_txt{
+  padding-right: 5px;
+  font-weight: 700;
+  position: relative;
+  top: 7px;
+  left: 3px;
+}
+
 .input_message{
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -103,7 +129,7 @@ textarea, button, input{
 .messages_container{
     padding: 10px;
     margin-bottom: 170px;
-    padding-top: 80px;
+    padding-top: 110px;
 }
 
 .message_my{
@@ -164,7 +190,7 @@ textarea, button, input{
 }
 
 .connect_container{
-    margin: 70px auto 0px auto;
+    margin: 200px auto 0px auto;
     max-width: 500px;
     min-width: 1px;
     background-color: #000;

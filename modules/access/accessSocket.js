@@ -5,6 +5,6 @@ module.exports.session = ()=>{
     return wrap(sessionConf());
 }
 module.exports.middleware = (socket, next)=>{
-    if(socket.request.session) next();
+    if(socket.request.session.auth) next();
     else next(new Error("Thou shall not pass"));
 }
