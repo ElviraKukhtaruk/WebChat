@@ -8,9 +8,11 @@ $(".submit_button").click(function(){
     dataType: 'text',
     data: {name: name, password: password},
     success: function(){
+        $(".form_input.name").val("");
         window.location.href = "/auth";
     },
     error: function(err){
+        $(".form_input.name").val("");
         showMessage(err.responseText, 'error');
     }
   });

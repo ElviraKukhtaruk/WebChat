@@ -9,7 +9,7 @@ try{
      io.to(second_person_id).emit('answer', data.message);
   }else socket.emit("error", {mess: "Nejste ve skupině, nebo sekretní slovo jiného uživatele je jiné"});
 }catch(err){
-  if(err.message === "Cannot read property 'id' of undefined") socket.emit("error", {mess:"Jiný uživatel nebyl nalezen"});
+  if(err.message === "Cannot read property 'id' of undefined") socket.emit("error", {mess: "Jiný uživatel nebyl nalezen"});
   else socket.emit("error", "");
 }
 }

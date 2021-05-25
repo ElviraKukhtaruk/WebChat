@@ -2,11 +2,12 @@ let express            = require("express");
 let router             = express.Router();
 let session_regenerate = require('../modules/session/regenerate'); 
 let access             = require('../modules/access/access');
-let checkPasswd        = require('../modules/auth/timingSafeEqual');
+let checkPasswd        = require('../modules/auth/checkPassword');
+let checkName          = require('../modules/auth/checkName');
 
 router.post('/', async(req, res)=>{
  try{
-   if(checkPasswd(req.body.password)){
+   if(checkPasswd(req.body.password) && checkName(req.body.name)){
     await session_regenerate(req);
     req.session.auth = true;
     res.render('chat');
@@ -28,7 +29,7 @@ router.post('/connect', (req, res)=>{
     req.session.socketId = req.body.id;
     req.session.secret_word = req.body.secret_name;
     res.send('success');
-   }else res.send('success');//res.status(403).send('Nejste přihlášeni');
+   }else res.status(403).send('Nejste přihlášeni');
  }catch(err){
     if(err.message === "too many people") res.status(403).send("V chatu už jsou 2 osoby");
     else res.status(500).send("Něco špatně, zkuste se přihlásit znova");

@@ -1,4 +1,4 @@
-let socket = io.connect('http://192.168.0.32:3000');
+let socket = io.connect('http://192.168.0.66:3000');
 
 socket.on('connect', function() {
     $(".input_connect.id").val(socket.id);
@@ -9,19 +9,19 @@ $(".submit_connect_btn").click(()=>{
     let secret_name = $(".input_connect.sec_name").val();
     sentRequest(id, secret_name);
 });
+     
 
-function sentRequest(id, secret_name){
+function sentRequest(id, secret_text){
 $.ajax({
     type: 'POST',
     url: '/auth/connect',
     dataType: 'text',
-    data: {id: id, secret_name: secret_name},
-    success: function(mess){
-      console.log(mess);
+    data: {id: id, secret_name: secret_text},
+    success: function(){
+      $(".input_connect.sec_name").val("");
       $(".connect").css("display", "none");
     },
     error: function(err){
-       console.log(err);
        showMessage(err.responseText, 'error');
     }
  });

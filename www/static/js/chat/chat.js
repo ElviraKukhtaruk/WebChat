@@ -19,21 +19,6 @@ $(".submit_button").click(function(){
     scrollDown();
 });
 
-$(".log_out").click(function(){
-  $.ajax({
-    type: 'GET',
-    url: '/auth/log_out',
-    dataType: 'text',
-    success: function(mess){
-      window.location.href = "/";
-    },
-    error: function(err){
-       console.log(err);
-       showMessage(err.responseText, 'error');
-    }
- });
-});
-
 socket.on('answer', function(answer){
     window.clearTimeout(setTimeoutId);
     $(".lds-facebook").css("display","none");

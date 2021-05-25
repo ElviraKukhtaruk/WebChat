@@ -5,17 +5,17 @@ let io           = require('socket.io')(http);
 let auth_route   = require("./routes/auth"); 
 let main_route   = require("./routes/main");
 let access       = require('./modules/access/access');
-let sessionConf  = require('./modules/session/conf');
+let session  = require('./modules/session/conf');
 let accessSocket = require('./modules/access/accessSocket'); 
 let sendMessage  = require('./modules/socket/sendMessage');
-let writing      = require('./modules/socket/writing');
+let user_is_writing      = require('./modules/socket/writing');
                    require('dotenv').config();
 
 
 app.use(express.static('www'));
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: true }));
-app.use(sessionConf());
+app.use(session());
 app.use('/', main_route);
 app.use('/auth', auth_route);
 
@@ -35,13 +35,13 @@ io.on('connection', (socket) => {
     sendMessage(socket, io, data);
   });
   socket.on("writing", ()=>{
-    writing(socket, io);
+    user_is_writing(socket, io);
   });
  }
 });
 
 
 
-http.listen(3000, '192.168.0.32', () => {
+http.listen(3000, '192.168.0.66', () => {
   console.log('server is running');
 });
