@@ -12,6 +12,21 @@ input, button{
     src: url('/static/style/fonts/PlayfairDisplay-Regular.ttf');
 }
 
+.img_logo{
+    width: 80px;
+    display: block;
+}
+.logo{
+    width: 80px;
+    text-align: center;
+}
+.logo_text{
+    margin-top: 5px;
+    font-size: 15px;
+    width: 100px;
+    margin-left: -7px;
+}
+
 .message{
     z-index: 3;
     display: none;
@@ -22,7 +37,7 @@ input, button{
     padding: 6px 0px 6px 0px;
     font-size: 19px;
     margin-left: -8px;
-    margin-top: -40px;
+    margin-top: -8px;
 }
 
 
@@ -33,10 +48,10 @@ input, button{
 }
 
 .form{
-    margin: 70px auto 20px auto;
+    margin: 30px auto 20px auto;
     padding: 20px;
     text-align: center;
-    border: 5px solid #dcdee0;
+    border: 0px solid #dcdee0;
     max-width: 700px;
     min-width: 1px;
 }

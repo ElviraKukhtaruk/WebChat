@@ -13,7 +13,7 @@ $(".submit_button").click(function(){
     let text = $(".input_message").val();
     if(text){
        socket.emit('message', {message: text});
-       $(`<div class='message_my'>${text}</div>`).appendTo(".messages_container");
+       $(`<div class='message_my'>${valitadeMessage(text)}</div>`).appendTo(".messages_container");
     }
     $(".input_message").val("");
     scrollDown();

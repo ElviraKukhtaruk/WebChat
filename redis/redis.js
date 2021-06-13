@@ -5,8 +5,9 @@ let connectRedis = require('connect-redis');
 let RedisStore   = connectRedis(session);
 
 module.exports = ()=>{
+
 const redisClient = redis.createClient({
-    host: process.env.REDIS_HOST,
+    host: '192.168.0.66',
     port: process.env.REDIS_PORT,
     auth_pass: process.env.REDIS_PASSWORD
 });

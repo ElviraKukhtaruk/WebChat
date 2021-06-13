@@ -14,6 +14,6 @@ module.exports.delete = (id)=>{
    access = access.filter(obj =>{ return obj.id !== id });  
 }
 
-module.exports.getSecondPerson = (id, secret_word)=>{
+module.exports.getSecondPerson = (id)=>{
    return access.filter(obj => { return obj.id !== id });   
 }

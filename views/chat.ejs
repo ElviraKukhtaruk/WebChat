@@ -3,15 +3,15 @@
   <head>
     <title>Ghost Party</title>
     <meta name="viewport" content="initial-scale=1, maximum-scale=1">
-    <link rel="icon" href="/static/img/half-moon.svg">
+    <link rel="icon" href="/static/img/raven.png">
     <link rel="stylesheet" href="/static/style/chat/style.css">
     <link rel="stylesheet" href="/static/style/chat/media.css">
   </head>
 <body>
   <div class="connect">
     <div class="connect_container">
-      <input class="input_connect id" name="id" placeholder="id"/>
-      <input class="input_connect sec_name" name="secret_name" placeholder="sekretní slovo"/>
+      <input class="input_connect id" name="id" placeholder="id" autocomplete="off"/>
+      <input class="input_connect sec_name" name="secret_name" placeholder="sekretní slovo" autocomplete="off"/>
       <button class="submit_connect_btn">Odeslat</button>
     </div>
   </div>
@@ -19,7 +19,7 @@
    <div class="menu">
     <div class="lds-facebook">Uživatel píše...<div></div><div></div><div></div></div>
     <div class="log_out"><img src="/static/img/log-out.svg" class="log_out_img"/><span class="log_out_txt">Odhlásit se</span></div>
-     <img src="/static/img/grid.svg" class="menu_icon"/>
+     <img src="/static/img/b.png" class="menu_icon"/>
    </div>
    <div class="message"></div>
     <div class="messages_container"></div>
@@ -37,6 +37,7 @@
 <script src="/static/js/messages/message.js"></script>
 <script src="/static/js/log_out/log_out.js"></script>
 <script src="/static/js/auth/connect.js"></script>
+<script src="/static/js/messages/validate.js"></script>
 <script src="/static/js/chat/chat.js"></script>
 <script>
    function scrollDown(){

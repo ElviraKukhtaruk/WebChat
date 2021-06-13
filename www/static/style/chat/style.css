@@ -37,7 +37,6 @@ textarea, button, input{
     width: 100%;
     text-align: center;
     padding: 6px 0px 6px 0px;
-    margin-top: 51px;
     font-size: 19px;
 }
 
@@ -52,9 +51,9 @@ textarea, button, input{
 
 .menu_icon{
     display: inline;
-    width: 30px;
+    width: 70px;
     float: right;
-    padding: 5px 20px 5px 0px;
+    padding: 7px 7px 2px 0px;
 }
 
 .send_container{

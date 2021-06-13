@@ -1,15 +1,15 @@
-let express      = require('express');
-let app          = express();
-let http         = require('http').Server(app);
-let io           = require('socket.io')(http);
-let auth_route   = require("./routes/auth"); 
-let main_route   = require("./routes/main");
-let access       = require('./modules/access/access');
-let session  = require('./modules/session/conf');
-let accessSocket = require('./modules/access/accessSocket'); 
-let sendMessage  = require('./modules/socket/sendMessage');
-let user_is_writing      = require('./modules/socket/writing');
-                   require('dotenv').config();
+let express         = require('express');
+let app             = express();
+let http            = require('http').Server(app);
+let io              = require('socket.io')(http);
+let auth_route      = require("./routes/auth"); 
+let main_route      = require("./routes/main");
+let access          = require('./modules/access/access');
+let session         = require('./modules/session/conf');
+let accessSocket    = require('./modules/access/accessSocket'); 
+let sendMessage     = require('./modules/socket/sendMessage');
+let user_is_writing = require('./modules/socket/writing');
+                      require('dotenv').config();
 
 
 app.use(express.static('www'));
