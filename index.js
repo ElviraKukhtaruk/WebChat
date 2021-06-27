@@ -9,23 +9,24 @@ let session         = require('./modules/session/conf');
 let accessSocket    = require('./modules/access/accessSocket'); 
 let sendMessage     = require('./modules/socket/sendMessage');
 let user_is_writing = require('./modules/socket/writing');
+let logger          = require('./modules/logs/log');
                       require('dotenv').config();
 
+          
 
-app.use(express.static('www'));
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: true }));
 app.use(session());
+app.use((req, res, next)=>{ logger(req, 'header'); next(); });
+app.use(express.static('www'));
 app.use('/', main_route);
 app.use('/auth', auth_route);
-
 io.use(accessSocket.session());
 io.use(accessSocket.middleware);
 
 
 
 io.on('connection', (socket) => {
- console.log('connected');
  if(socket.request.session.auth){
   socket.on('disconnect', () => {
     access.delete(socket.id);
