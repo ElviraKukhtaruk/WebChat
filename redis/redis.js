@@ -7,7 +7,7 @@ let RedisStore   = connectRedis(session);
 module.exports = ()=>{
 
 const redisClient = redis.createClient({
-    host: '192.168.0.66',
+    host: process.env.REDIS_HOST,
     port: process.env.REDIS_PORT,
     auth_pass: process.env.REDIS_PASSWORD
 });

@@ -43,6 +43,6 @@ io.on('connection', (socket) => {
 
 
 
-http.listen(3000, '192.168.0.66', () => {
+http.listen(3000, '192.168.1.66', () => {
   console.log('server is running');
 });

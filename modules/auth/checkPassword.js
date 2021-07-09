@@ -7,6 +7,6 @@ module.exports = (data)=>{
   let user_data = Buffer.from(user_generate_hash); 
   let passwd_data = Buffer.from(process.env.PASSWORD);
 
-  return user_data.length === passwd_data.length && crypto.timingSafeEqual(user_data, passwd_data);
+  return crypto.timingSafeEqual(user_data, passwd_data);
   
 }

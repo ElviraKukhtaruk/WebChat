@@ -1,4 +1,4 @@
-let socket = io.connect('http://192.168.0.66:3000');
+let socket = io.connect('http://192.168.1.66:3000');
 
 socket.on('connect', function() {
     $(".input_connect.id").val(socket.id);
