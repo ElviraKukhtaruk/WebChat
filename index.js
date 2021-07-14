@@ -43,6 +43,6 @@ io.on('connection', (socket) => {
 
 
 
-http.listen(3000, '192.168.1.66', () => {
+http.listen(process.env.WEB_PORT, process.env.WEB_HOST, () => {
   console.log('server is running');
 });
