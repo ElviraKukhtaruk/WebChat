@@ -4,10 +4,8 @@
   "description": "Secret chat (with OpenVPN encryption)",
   "main": "index.js",
   "dependencies": {
-    "chalk": "^2.4.2",
     "connect-redis": "^5.1.0",
     "dotenv": "^9.0.0",
-    "ejs": "^3.1.6",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
     "redis": "^3.0.2",
