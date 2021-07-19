@@ -17,7 +17,7 @@ router.post('/', async(req, res)=>{
       logger(req, 'info', `User is logged in`);
    }else{ 
       res.status(403).send('Špatné heslo nebo jméno'); 
-      logger(req, 'info', `User entered incorrect data: name: ${name}, password: ${password}`);
+      logger(req, 'info', `User entered incorrect data`);
    }
  }catch(err){
     res.status(500).send('Something went wrong');
@@ -36,10 +36,10 @@ router.post('/connect', (req, res)=>{
     access.add(id, secret_name);
     req.session.socketId = id, req.session.secret_word = secret_name;
     res.send('success');
-    logger(req, 'info', `User has been added to the db, sec_name: ${secret_name}`);
+    logger(req, 'info', `User has been added to the db, socket id: ${id}`);
    }else{ 
      res.status(403).send('Nejste přihlášeni nebo uvedené informace nejsou spravná');
-     logger(req, 'error', `User could not be added to the database: id: ${req.body.id}, sec_name: ${req.body.secret_name}`);   
+     logger(req, 'error', `User could not be added to the database: id: ${req.body.id}`);   
    }
  }catch(err){
     if(err.message === "too many people"){

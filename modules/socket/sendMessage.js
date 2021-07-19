@@ -12,10 +12,10 @@ try{
        message = validateMessage(data.message);
    if(access.get(socket.id) != '' && second_person_secret_word === current_person_secret_word){
       io.to(second_person_id).emit('answer', message);
-      logger(get_req(socket), 'info', `User send message: ${message} to id: ${second_person_id}`);
+      logger(get_req(socket), 'info', `User send message: to id: ${second_person_id}`);
    }else{
       socket.emit("error", {mess: "Nejste ve skupině, nebo sekretní slovo jiného uživatele je jiné"});
-      logger(get_req(socket), 'info', `Refusal to send user\'s message, sec_word: ${current_person_secret_word}`);
+      logger(get_req(socket), 'info', `Refusal to send user\'s message`);
    }
 }catch(err){
   if(err.message === "Cannot read property 'id' of undefined"){
