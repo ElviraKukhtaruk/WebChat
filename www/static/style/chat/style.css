@@ -71,16 +71,14 @@ textarea, button, input{
 
 
 .log_out{
-  background-color: #33FF82;
+  background-color: transparent;
   width: -moz-fit-content;
   width: fit-content;
-  padding: 10px;
+  padding: 5px;
   font-size: 15px;
   display: inline-flex;
   position: relative;
   top: 54px;
-  color: #000;
-  border-top: 2px dotted #fff;
 }
 
 .log_out_img{

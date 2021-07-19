@@ -1,6 +1,9 @@
 body{
     font-family: ShipporiMinchoB1;
-    background-color: #000;
+    background-color: black;
+    /*background: linear-gradient(to right bottom, #000, #9b9b9b);
+    background-repeat: no-repeat;
+    background-attachment: fixed;*/
     color: #dcdee0;
 }
 
@@ -10,6 +13,15 @@ input, button{
 @font-face {
     font-family: ShipporiMinchoB1;
     src: url('/static/style/fonts/PlayfairDisplay-Regular.ttf');
+}
+
+.log_in{
+    background-color: red;
+    width: fit-content;
+}
+
+.log_in_img{
+    float: right;
 }
 
 .img_logo{
@@ -45,6 +57,15 @@ input, button{
     margin-top: 40px;
     font-size: 50px;
     text-align: center;
+}
+
+.fingerprint_wrp{
+    float: right;
+    margin-top: -75px;
+}
+
+.fingerprint{
+    width: 50px;
 }
 
 .form{
