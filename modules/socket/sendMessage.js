@@ -1,29 +1,19 @@
-let access          = require('../../modules/access/access');
 let validateMessage = require('../validation/message');
-let get_req         = require('./socketRequest');
+let getSocketId     = require('../socket/getSocketId');
+let isSocketActive  = require('../socket/isSocketActive');
+let get_req         = require('../socket/socketRequest');
 let logger          = require('../logs/log');
 
-
-module.exports = (socket, io, data)=>{
+module.exports = async(socket, io, data)=>{
 try{
-   let second_person_id = access.getSecondPerson(socket.id)[0].id,
-       second_person_secret_word = access.getSecondPerson(socket.id)[0].secret_word, 
-       current_person_secret_word = access.get(socket.id)[0].secret_word,
-       message = validateMessage(data.message);
-   if(access.get(socket.id) != '' && second_person_secret_word === current_person_secret_word){
-      io.to(second_person_id).emit('answer', message);
-      logger(get_req(socket), 'info', `User send message: to id: ${second_person_id}`);
-   }else{
-      socket.emit("error", {mess: "Nejste ve skupině, nebo sekretní slovo jiného uživatele je jiné"});
-      logger(get_req(socket), 'info', `Refusal to send user\'s message`);
-   }
+   let socket_id = await getSocketId(socket.request.session.current_dialogue_with);
+   if(socket_id){
+      let is_user_online = await isSocketActive(io, socket_id);
+      is_user_online ? io.to(socket_id).emit('answer', validateMessage(data)) : socket.emit("error", {mess: "Uživatel není online"});
+      logger(get_req(socket), 'info', `User send message to id ${socket_id}`);
+   }else socket.emit('error', {mess: 'Uživatel nebyl nalezen'});
 }catch(err){
-  if(err.message === "Cannot read property 'id' of undefined"){
-     socket.emit("error", {mess: "Jiný uživatel nebyl nalezen"});
-     logger(get_req(socket), 'error', err);
-  }else{ 
-     socket.emit("error", "");
-     logger(get_req(socket), 'error', err);
-  }
+   socket.emit("error", {mess: "Došlo k chybě, restartujte stránku"});
+   logger(get_req(socket), 'error', err);
 }
 }

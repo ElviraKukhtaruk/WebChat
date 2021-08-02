@@ -10,7 +10,6 @@
 <body>
   <div class="connect">
     <div class="connect_container">
-      <input class="input_connect id" name="id" placeholder="id" autocomplete="off"/>
       <input class="input_connect sec_name" name="secret_name" placeholder="sekretní slovo" autocomplete="off"/>
       <button class="submit_connect_btn">Odeslat</button>
     </div>
@@ -39,10 +38,13 @@
 <script src="/static/js/auth/connect.js"></script>
 <script src="/static/js/messages/validate.js"></script>
 <script src="/static/js/chat/chat.js"></script>
+<script src="/static/js/library/generateKey.js"></script>
 <script>
    function scrollDown(){
      setTimeout(()=>{
          window.scrollTo(0,document.querySelector("body").scrollHeight);
      }, 0);
     }scrollDown();
+
+   // generatePublicKey().then(data => console.log(data));
 </script>

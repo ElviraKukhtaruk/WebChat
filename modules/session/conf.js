@@ -8,8 +8,9 @@ module.exports = ()=>{
     resave: false,
     saveUninitialized: true,
     cookie:{
-        secure: false,
-        httpOnly: true
+        secure: true,
+        httpOnly: true,
+        domain: process.env.WEB_HOST
     }
   });
 };

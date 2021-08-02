@@ -4,13 +4,13 @@ let logger      = require('../logs/log');
 
 
 module.exports.session = ()=>{
-    /*Функция-оболочка, чтобы сигнатуры методов совпадали 
-    (что бы модули промежуточного программного обеспечения Express были совместимы с Socket.IO)*/
+    // Функция-оболочка, чтобы сигнатуры методов совпадали 
+    // (что бы модули промежуточного программного обеспечения Express были совместимы с Socket.IO)
     const wrap = middleware => (socket, next) => middleware(socket.request, {}, next);
     return wrap(sessionConf());
 }
 module.exports.middleware = (socket, next)=>{
-    if(socket.request.session.auth){
+    if(socket.request.session.userID){
         next();
         logger(get_req(socket), 'info', `The user has successfully connected to the socket`);
     }else{
