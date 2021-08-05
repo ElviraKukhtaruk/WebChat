@@ -13,15 +13,15 @@ function makeKeys() {
         publicExponent: new Uint8Array([1, 0, 1]),
         hash: {name: "SHA-256"}, //"SHA-1", "SHA-256", "SHA-384", "SHA-512"
     },
-    false,
-    ["encrypt", "decrypt"] 
+    false, // Логическое значение, говорит, можно ли будет экспортировать ключ
+    ["encrypt", "decrypt"] // Указываем, что можно сделать с вновь сгенерированным ключом
    );
 }
 
 async function generatePrivateKey(){
   return makeKeys().then(async function(data){
-      let dataa = await importSecretKey('pkcs8', data.privateKey);
-      let text = String.fromCharCode.apply(null, new Uint8Array(dataa));
+      let secretKey = await importSecretKey('pkcs8', data.privateKey);
+      let text = String.fromCharCode.apply(null, new Uint8Array(secretKey));
       const exportedAsBase64 = window.btoa(text);
       return `-----BEGIN PRIVATE KEY-----\n${exportedAsBase64}\n-----END PRIVATE KEY-----`;
   });

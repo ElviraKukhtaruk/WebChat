@@ -8,7 +8,6 @@ try{
     let user = await User.findOne({username: req.body.username});
     if(user){ 
         req.session.current_dialogue_with = user._id;
-        req.session.save();
         res.sendStatus(200);
         logger(req, 'info', `User start chat with: ${req.body.username}`);
     }else res.status(404).send('User with this username not found');

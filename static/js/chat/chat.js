@@ -1,3 +1,4 @@
+let socket = io.connect('https://192.168.0.66:443');
 let setTimeoutId;
 
 function scrollDown(){

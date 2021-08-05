@@ -1,6 +1,3 @@
-let socket = io.connect('https://192.168.0.66:443');
-let room_name;
-
 $(".submit_connect_btn").click(()=>{
     let username = $(".input_connect.sec_name").val();
     sendRequest(username);
@@ -14,6 +11,9 @@ $.ajax({
     data: {username: username},
     success: function(){
         $(".connect").css("display", "none");
+        let script = document.createElement('script');
+            script.src = '/static/js/chat/chat.js';
+            document.body.appendChild(script);
     },
     error: function(err){
         showMessage(err.responseText, 'error');

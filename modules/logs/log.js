@@ -9,8 +9,8 @@ let log = (req, log_text, date, id)=>{
 
 module.exports = (req, log_type, log_text)=>{
 try{
- let id = 'undefined', now = new Date();
- let date =`[${now.getFullYear()}-${now.getMonth()+1}-${now.getDate()} ${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}]`;
+ let id = '', now = new Date(),
+ date =`[${now.getFullYear()}-${now.getMonth()+1}-${now.getDate()} ${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}]`;
 
  req.method === 'socket' ? id = req.socket_and_session_id : id = req.sessionID;
 

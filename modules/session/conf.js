@@ -3,6 +3,7 @@ let redisClient = require('../../redis/redis');
 
 module.exports = ()=>{
  return session({
+    name: 'hello_world',
     store: redisClient(),
     secret: process.env.SESSION_SECRET,
     resave: false,
@@ -10,7 +11,7 @@ module.exports = ()=>{
     cookie:{
         secure: true,
         httpOnly: true,
-        domain: process.env.WEB_HOST
+        sameSite: true
     }
   });
 };
