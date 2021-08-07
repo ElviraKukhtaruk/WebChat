@@ -1,7 +1,7 @@
 {
-  "name": "srv",
+  "name": "Secret Chat",
   "version": "1.0.0",
-  "description": "Secret chat (with OpenVPN encryption)",
+  "description": "Secret chat (with encryption)",
   "main": "index.js",
   "dependencies": {
     "bcrypt": "^5.0.1",
@@ -18,7 +18,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "evil_legend",
+  "author": "Elvira Kukhtaruk",
   "license": "UNLICENSED",
   "private": true
 }
