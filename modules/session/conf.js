@@ -4,7 +4,7 @@ let redisClient = require('../../redis/redis');
 module.exports = ()=>{
  return session({
     name: 'hello_world',
-    store: redisClient(),
+    store: redisClient.sessionStore(),
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,

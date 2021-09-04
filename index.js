@@ -11,12 +11,12 @@ let session              = require('./modules/session/conf');
 let accessSocket         = require('./modules/access/accessSocket'); 
 let sendMessage          = require('./modules/socket/sendMessage');
 let user_is_writing      = require('./modules/socket/writing');
+let redisStore           = require('./redis/setAndGet');
 let logger               = require('./modules/logs/log');
-let get_req              = require('./modules/socket/socketRequest');
-let socketDB             = require('./modules/access/socketIdAccess');
                            require('dotenv').config();
 let db                   = require('./db/conf');
-          
+
+        
 app.use(helmet());
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: true }));
@@ -32,24 +32,24 @@ io.use(accessSocket.session());
 io.use(accessSocket.middleware);
 
 
+
+
 io.on('connection', (socket) => {
 try{
- if(socket.request.session.userID){
+  socket.on('disconnect', () => logger(socket, 'info', 'User disconnected'));
   
-  socketDB.add(socket.request.session.userID, socket.id);
+  socket.on('getPublicKey', async(callback)=>{
+    let user_data = await redisStore.get(socket.request.session.current_dialogue_with, true);
+    callback(user_data.publicKey);
+  });
 
-  socket.on('disconnect', () => {
-    console.log('user disconnected');
-  });
-  socket.on('message', async(data) => {
-    await sendMessage(socket, io, data.message);
-  });
-  socket.on("writing", ()=>{
-    user_is_writing(socket, io);
-  });
-}}catch(err){
+  socket.on('message', async(data) => await sendMessage(socket, io, data));
+  
+  socket.on("writing", () => user_is_writing(socket, io));
+  
+}catch(err){
   socket.emit("error", {mess: "Došlo k chybě, restartujte stránku"});
-  logger(get_req(socket), 'error', err);
+  logger(socket, 'error', err);
 }
 });
 

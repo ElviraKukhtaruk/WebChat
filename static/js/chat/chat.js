@@ -1,48 +1,64 @@
-let socket = io.connect('https://192.168.0.66:443');
-let setTimeoutId;
+(async function(){
+  let setTimeoutId;
+  let publicKey = await generateKeys();
+  let socket = io.connect('https://192.168.0.66:443', {auth: {publicKey}});
+  
+  $(".input_message").on("keydown", () => socket.emit('writing'));
+  $(".submit_button").click(sendAndEncryptMessage);
+  socket.on('answer', getAndDecryptMessage);
+  socket.on("user_is_writing", userIsWriting);
+  socket.on('disconnect', ()=> showMessage('Chyba připojení k serveru. Zkuste restartovat stránku.', 'error'));
+  socket.on('error', err => err.mess ? showMessage(err.mess, "error") : showMessage("Došlo k chybě", "error"));
 
-function scrollDown(){
-  setTimeout(()=> window.scrollTo(0, document.querySelector("body").scrollHeight), 0);
-}
 
-$(".input_message").on("keydown", function(){
-  socket.emit('writing');
-});
-
-
-$(".submit_button").click(function(){
-    let text = $(".input_message").val();
-    if(text){
-       socket.emit('message', {message: text});
+async function sendAndEncryptMessage(){
+  let text = $(".input_message").val();
+  if(text){
+      socket.emit('getPublicKey', async(publicKey)=>{
+        let currentPubKey = await localforage.getItem('publicKeyOfCurrentInterlocutor');
+        if(currentPubKey !== null && JSON.stringify(currentPubKey) === JSON.stringify(publicKey)){
+          let encryptedData = await encrypt(text);
+          let pubKey = await localforage.getItem('myPublicKey');
+          socket.emit('message', {message: encryptedData.message, iv: encryptedData.iv.buffer, pubKey: pubKey});
+         }else{
+          await localforage.setItem('publicKeyOfCurrentInterlocutor', publicKey);
+          await generateSecret(publicKey);
+          let encryptedData = await encrypt(text);
+          let pubKey = await localforage.getItem('myPublicKey');
+          socket.emit('message', {message: encryptedData.message, iv: encryptedData.iv.buffer, pubKey: pubKey});
+         }
+       });
        $(`<div class='message_my'>${valitadeMessage(text)}</div>`).appendTo(".messages_container");
     }
     $(".input_message").val("");
     scrollDown();
-});
+}
 
-socket.on('answer', function(answer){
-    window.clearTimeout(setTimeoutId);
-    $(".lds-facebook").css("display","none");
-    $(`<div class='message_user'>${answer}</div>`).appendTo(".messages_container");
-    scrollDown();
-});
 
-socket.on("user_is_writing", function(){
+async function getAndDecryptMessage(answer){
   window.clearTimeout(setTimeoutId);
-  $(".lds-facebook").css("display","inline-block");
-  setTimeoutId = window.setTimeout(function(){
-    $(".lds-facebook").css("display","none");
-  }, 2000);
-});
+  showUserIsWriting('hide');
+ 
+  let currentPubKey = await localforage.getItem('publicKeyOfCurrentInterlocutor');
+  if(currentPubKey !== null && JSON.stringify(currentPubKey) === JSON.stringify(answer.pubKey)){
+      let decryptedData = await decrypt(answer.message, answer.iv);
+      $(`<div class='message_user'>${valitadeMessage(decryptedData)}</div>`).appendTo(".messages_container");
+  }else{
+    await localforage.setItem('publicKeyOfCurrentInterlocutor', answer.pubKey);
+    await generateSecret(answer.pubKey);
+    let decryptedData = await decrypt(answer.message, answer.iv);
+    $(`<div class='message_user'>${valitadeMessage(decryptedData)}</div>`).appendTo(".messages_container");
+  
+  }
+  scrollDown();
+}
 
-
-socket.on('disconnect', function(err){
-  showMessage('Chyba připojení k serveru. Zkuste restartovat stránku.', 'error');
-});
-socket.on('error', function(err){
-  if(err.mess) showMessage(err.mess, "error");
-  else showMessage("Došlo k chybě", "error");
-});
-
-
-
+function userIsWriting(){
+  window.clearTimeout(setTimeoutId);
+  showUserIsWriting('show');
+  setTimeoutId = window.setTimeout(()=> showUserIsWriting('hide'), 2000);
+}
+  
+})();
+  
+  

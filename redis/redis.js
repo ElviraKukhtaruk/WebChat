@@ -4,12 +4,10 @@ let session      = require('express-session');
 let connectRedis = require('connect-redis');
 let RedisStore   = connectRedis(session);
 
-module.exports = ()=>{
-
 const redisClient = redis.createClient({
-    host: process.env.REDIS_HOST,
-    port: process.env.REDIS_PORT,
-    auth_pass: process.env.REDIS_PASSWORD
+  host: process.env.REDIS_HOST,
+  port: process.env.REDIS_PORT,
+  auth_pass: process.env.REDIS_PASSWORD
 });
 
 redisClient.on('error', (err)=>{
@@ -20,5 +18,5 @@ redisClient.on('connect', (err)=>{
   console.log('Redis connected successfully !');
 });
 
-return new RedisStore({client: redisClient});
-}
+module.exports.sessionStore = ()=> new RedisStore({client: redisClient});
+module.exports.redisClient = () => redisClient;

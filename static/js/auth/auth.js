@@ -1,6 +1,7 @@
-$(".submit_button").click(function(){
+$(".submit_button").click(async function(){
  let name = $(".form_input.name").val();
  let password = $(".form_input.password").val();
+
 
   $.ajax({
     type: 'POST',

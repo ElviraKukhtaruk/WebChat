@@ -1,14 +1,11 @@
-let get_req     = require('../socket/socketRequest');
 let logger      = require('../logs/log');
-let socketDB    = require('../access/socketIdAccess'); 
+let redisStore  = require('../../redis/setAndGet');
 
-module.exports = (socket, io)=>{
+module.exports = async(socket, io)=>{
 try{
-   let socket_id = socketDB.get(socket.request.session.current_dialogue_with);
-   if (socket_id) io.to(socket_id).emit('user_is_writing'); 
-   else socket.emit('error', {mess: 'Uživatel nebyl nalezen'});
+   let user_data = await redisStore.get(socket.request.session.current_dialogue_with, true);
+   if(user_data.socket_id) io.to(user_data.socket_id).emit('user_is_writing'); 
 }catch(err){
-  socket.emit("error", {mess: "Došlo k chybě, restartujte stránku"});
-  logger(get_req(socket), 'error', err);
+  logger(socket, 'error', err);
 }
 }
