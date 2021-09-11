@@ -13,6 +13,9 @@ async function importKey(format, extractable, key, usages){
 }
 
  async function encrypt(plainText){
+  if(window.TextEncoder === undefined){
+    showMessage('Váš prohlížeč nepodporuje TextEcoder, aktualizujte prosím svůj prohlížeč nebo nainstalujte jiný.', 'error');
+  }else{
     currentIV = window.crypto.getRandomValues(new Uint8Array(12));
     let messages = new TextEncoder('utf-8').encode(plainText);
     return {message: await window.crypto.subtle.encrypt(
@@ -21,10 +24,13 @@ async function importKey(format, extractable, key, usages){
         await localforage.getItem('secret'),
         messages
       ), iv: currentIV}
+  }
  }
 
 async function decrypt(encryptMessage, iv){
-  console.log('decrypt 1');
+  if(window.TextDecoder === undefined){
+    showMessage('Váš prohlížeč nepodporuje TextDecoder, aktualizujte prosím svůj prohlížeč nebo nainstalujte jiný.', 'error');
+  }else{
     let decryptMessage = await window.crypto.subtle.decrypt(
         { name: "AES-GCM",
           iv: iv },
@@ -33,6 +39,7 @@ async function decrypt(encryptMessage, iv){
       );
       console.log('decrypt 2');
     return new TextDecoder().decode(decryptMessage);
+  }
 }
 
 async function generateKeys(){

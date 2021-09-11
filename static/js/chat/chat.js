@@ -1,4 +1,5 @@
 (async function(){
+
   let setTimeoutId;
   let publicKey = await generateKeys();
   let socket = io.connect('https://192.168.0.66:443', {auth: {publicKey}});

@@ -8,6 +8,5 @@ function valitadeMessage(message){
     .replace(/\(/g, '&#40;')
     .replace(/\)/g, '&#41;')
     .replace(/\{/g, '&#123;')
-    .replace(/\}/g, '&#125;')
-    .replace(/\//g, '&#x2F');
+    .replace(/\}/g, '&#125;');
 }
