@@ -5,12 +5,20 @@ let logger               = require('../modules/logs/log');
 
 router.post('/startChat', async(req, res)=>{
 try{
-    let user = await User.findOne({username: req.body.username});
-    if(user && req.session.userID){ 
-        req.session.current_dialogue_with = user._id;
-        res.sendStatus(200);
-        logger(req, 'info', `User start chat with: ${req.body.username}`);
-    }else res.status(404).send('User with this username not found or you are not authenticated');
+    if(req.session.userID && typeof req.body.username === "string"){ 
+        let user = await User.findOne({username: req.body.username});
+        if(user){
+           req.session.current_dialogue_with = user._id;
+           res.sendStatus(200);
+           logger(req, 'info', `User start chat with: ${req.body.username}`);
+        }else{
+            res.status(404).send('User with this username not found');
+            logger(req, 'info', `User with username "${req.body.username}" not found`);
+        }
+    }else{ 
+     res.status(404).send('You are not authenticated, or username you entered is incorrect');
+     logger(req, 'info', `User is not authenticated, or username entered by user is incorrect`);
+    }
 }catch(err){
     res.status(500).send('Something went wrong');
     logger(req, 'error', err);
