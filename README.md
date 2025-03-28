@@ -1,3 +1,14 @@
+# Secret Chat
+## Features of this Application
+The secret chat does not store messages on the server or any other storage. When chatting with someone, messages are only displayed on the client side, but they disappear when the page is refreshed.
+
+To enter the chat, you need to log into your account. To chat with someone, you must connect to them using their unique username. The application will always notify users of errors when sending messages or if the recipient is offline (or in any other applicable situations).
+### Planned Features for the Future
+* End-to-end encryption ✅
+* Access to chat without VPN ✅
+* Separate chat rooms (Currently, communication is only possible with one person at a time)
+
+
 # Секретный чат
 ## Функции этого приложения
 
