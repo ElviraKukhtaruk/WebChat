@@ -18,7 +18,12 @@ let logger               = require('./modules/logs/log');
                            require('dotenv').config();
 let db                   = require('./db/conf');
 
-app.use(cacheControl);        
+
+app.use(cacheControl);
+app.use((req, res, next) => {
+  res.setHeader('Content-Security-Policy', "default-src 'self'; connect-src 'self' https://192.168.0.66;");
+  next();
+});      
 app.use(helmet(helmetOptions));
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: true }));
@@ -56,6 +61,6 @@ try{
 
 
 
-https.listen(process.env.WEB_PORT, process.env.WEB_HOST, () => {
+https.listen(8080, '0.0.0.0', () => {
   console.log('server is running');
 });

@@ -9,7 +9,12 @@ try{
   let socket_id = user_data.socket_id;
    if(socket_id){
       let is_user_online = await isSocketActive(io, socket_id);
-      is_user_online ? io.to(socket_id).emit('answer', data) : socket.emit("error", {mess: "Uživatel není online"});
+      console.log(data)
+      is_user_online ? io.to(socket_id).emit('answer', {
+         message: data.message.toString("base64"),
+         iv: data.iv.toString('base64'),
+         pubKey: data.pubKey
+      }) : socket.emit("error", {mess: "Uživatel není online"});
       logger(socket, 'info', `User sent message to id ${socket_id}`);
    }else socket.emit('error', {mess: 'Uživatel nebyl nalezen, možna není online'});
 }catch(err){

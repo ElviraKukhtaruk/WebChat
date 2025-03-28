@@ -2,7 +2,7 @@
 
   let setTimeoutId;
   let publicKey = await generateKeys();
-  let socket = io.connect('https://192.168.0.66:443', {auth: {publicKey}});
+  let socket = io.connect('/', {auth: {publicKey}});
   
   $(".input_message").on("keydown", () => socket.emit('writing'));
   $(".submit_button").click(sendAndEncryptMessage);
@@ -35,8 +35,25 @@ async function sendAndEncryptMessage(){
     scrollDown();
 }
 
+function base64ToUint8Array(base64) {
+  const binaryString = window.atob(base64);
+  const len = binaryString.length;
+  const bytes = new Uint8Array(len);
+  for (let i = 0; i < len; i++) {
+    bytes[i] = binaryString.charCodeAt(i);
+  }
+  return bytes;
+}
 
 async function getAndDecryptMessage(answer){
+  console.log(444);
+
+  answer = {
+    message: base64ToUint8Array(answer.message),
+    iv: base64ToUint8Array(answer.iv),
+    pubKey: answer.pubKey
+  };
+
   window.clearTimeout(setTimeoutId);
   showUserIsWriting('hide');
  
